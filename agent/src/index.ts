@@ -160,6 +160,7 @@ import { quickIntelPlugin } from "@elizaos/plugin-quick-intel";
 
 import { trikonPlugin } from "@elizaos/plugin-trikon";
 import arbitragePlugin from "@elizaos/plugin-arbitrage";
+import { diffusePlugin } from "@elizaos/plugin-diffuse";
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
 
@@ -951,6 +952,22 @@ export async function createAgent(
         );
     }
 
+    let diffusePlugin: any | undefined;
+    if (
+        process.env.DIFFUSE_APP_ID &&
+        process.env.DIFFUSE_APP_SECRET &&
+        process.env.DIFFUSE_ENABLED === "true"
+    ) {
+        diffusePlugin = new diffusePlugin({
+            appId: process.env.DIFFUSE_APP_ID,
+            appSecret: process.env.DIFFUSE_APP_SECRET,
+            modelProvider: character.modelProvider,
+            token,
+        });
+        elizaLogger.log("Diffuse plugin initialized");
+    }
+
+
     let zilliqaPlugin: any | undefined;
     if (getSecret(character, "ZILLIQA_PRIVATE_KEY")) {
         zilliqaPlugin = await createZilliqaPlugin((secret) =>
@@ -1313,6 +1330,7 @@ export async function createAgent(
         cacheManager: cache,
         fetch: logFetch,
         verifiableInferenceAdapter,
+        diffusePlugin,
     });
 }
 

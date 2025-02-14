@@ -56,6 +56,7 @@
         "@elizaos/plugin-conflux": "workspace:*",
         "@elizaos/plugin-cosmos": "workspace:*",
         "@elizaos/plugin-desk-exchange": "workspace:*",
+        "@elizaos/plugin-diffuse": "workspace:*",
         "@elizaos/plugin-echochambers": "workspace:*",
         "@elizaos/plugin-evm": "workspace:*",
         "@elizaos/plugin-edwin": "workspace:*",
